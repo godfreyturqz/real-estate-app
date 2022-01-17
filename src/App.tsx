@@ -1,13 +1,19 @@
 import { HashRouter } from 'react-router-dom'
+import { ChakraProvider } from '@chakra-ui/react'
+import NProgress from 'nprogress'
 import Home from './pages/Home'
+
+import './styles/globals.css'
 
 
 const App = () => {
 
   return (
-    <HashRouter>
-      <Home/>
-    </HashRouter>
+    <ChakraProvider>
+      <HashRouter>
+        <Home/>
+      </HashRouter>
+    </ChakraProvider>
   )
 }
 

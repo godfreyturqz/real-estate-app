@@ -1,8 +1,53 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Flex, Box } from '@chakra-ui/react'
 import Banner from '../components/Banner'
 
+import Property from '../components/Property'
+import { baseUrl, fetchApi } from '../utils/fetchApi'
+
+type Data = {
+    hits: {
+      id: number
+      coverPhoto: {
+        url: string
+      }
+      price: number
+      rentFrequency: string
+      rooms: number
+      title: string
+      baths: number
+      area: number
+      agency: {
+          logo: {
+              url: string
+          }
+      }
+      isVerified: boolean
+      externalID  : string
+    }[]
+}
+
 const Home: React.FC = () => {
+
+    const [propertiesForRent, setPropertiesForRent] = useState<Data | null>(null)
+    const [propertiesForSale, setpropertiesForSale] = useState<Data | null>(null)
+
+    useEffect(() => {
+    
+        const fetchProperties = async () => {
+            const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`)
+            const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`)
+
+            console.log(propertyForRent.hits)
+            setPropertiesForRent(propertyForRent)
+            setpropertiesForSale(propertyForSale)
+
+        }
+
+        fetchProperties()
+
+    }, [])
+
     return (
         <Box>
             <Banner
@@ -16,7 +61,7 @@ const Home: React.FC = () => {
                 imageUrl='https://bayut-production.s3.eu-central-1.amazonaws.com/image/145426814/33973352624c48628e41f2ec460faba4'
             />
             <Flex flexWrap='wrap'>
-                {/* {propertiesForRent.map((property) => <Property property={property} key={property.id} />)} */}
+                {propertiesForRent?.hits.map((property) => <Property property={property} key={property.id} />)}
             </Flex>
             <Banner
                 purpose='BUY A HOME'
@@ -29,7 +74,7 @@ const Home: React.FC = () => {
                 imageUrl='https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008'
             />
             <Flex flexWrap='wrap'>
-                {/* {propertiesForSale.map((property) => <Property property={property} key={property.id} />)} */}
+                {propertiesForSale?.hits.map((property) => <Property property={property} key={property.id} />)}
             </Flex>
         </Box>
     )
