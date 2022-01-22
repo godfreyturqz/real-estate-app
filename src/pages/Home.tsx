@@ -1,56 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import { Flex, Box } from '@chakra-ui/react'
+
 import Banner from '../components/Banner'
-
 import Property from '../components/Property'
-import { baseUrl, fetchApi } from '../utils/fetchApi'
 
-type Data = {
-    hits: {
-      id: number
-      coverPhoto: {
-        url: string
-      }
-      price: number
-      rentFrequency: string
-      rooms: number
-      title: string
-      baths: number
-      area: number
-      agency: {
-          logo: {
-              url: string
-          }
-      }
-      isVerified: boolean
-      externalID  : string
-    }[]
-}
+import { baseUrl, fetchApi } from '../utils/fetchApi'
+import { ApiData } from '../types'
+
 
 const Home: React.FC = () => {
 
-    const [propertiesForRent, setPropertiesForRent] = useState<Data | null>(null)
-    const [propertiesForSale, setpropertiesForSale] = useState<Data | null>(null)
+    const [propertiesForRent, setPropertiesForRent] = useState<ApiData | null>(null)
+    const [propertiesForSale, setpropertiesForSale] = useState<ApiData | null>(null)
+    
 
     useEffect(() => {
-    
         try {
             const fetchProperties = async () => {
                 const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`)
                 const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`)
     
-                console.log(propertyForRent.hits)
-                setPropertiesForRent(propertyForRent)
-                setpropertiesForSale(propertyForSale)
+                setPropertiesForRent(propertyForRent || null)
+                setpropertiesForSale(propertyForSale || null)
     
             }
-    
             fetchProperties()
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
-        
-
     }, [])
 
     return (

@@ -14,10 +14,19 @@ interface BannerType {
     imageUrl: string
 }
 
-const Banner: React.FC<BannerType> = ({ purpose, title1, title2, desc1, desc2, buttonText, linkName, imageUrl }) => {
+const Banner: React.FC<BannerType> = ({ 
+    purpose, 
+    title1, 
+    title2, 
+    desc1, 
+    desc2, 
+    buttonText, 
+    linkName, imageUrl 
+}) => {
+    
     return (
         <Flex flexWrap='wrap' justifyContent='center' alignItems='center' m='10'>
-            <img src={imageUrl} style={{width: "500px", height: "300px"}} alt='banner'/>
+            <img src={imageUrl} style={{width: "500px", height: "300px"}} loading='lazy'/>
             <Box p='5'>
             <Text color='gray.500' fontSize='sm' fontWeight='medium'>{purpose}</Text>
             <Text fontSize='3xl' fontWeight='bold'>{title1}<br />{title2}</Text>

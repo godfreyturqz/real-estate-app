@@ -1,26 +1,6 @@
 import axios from "axios"
+import { ApiData } from '../types'
 
-type Data = {
-    hits: {
-      id: number
-      coverPhoto: {
-        url: string
-      }
-      price: number
-      rentFrequency: string
-      rooms: number
-      title: string
-      baths: number
-      area: number
-      agency: {
-          logo: {
-              url: string
-          }
-      }
-      isVerified: boolean
-      externalID  : string
-    }[]
-}
 
 export const baseUrl = 'https://bayut.p.rapidapi.com'
 
@@ -28,7 +8,7 @@ export const fetchApi = async (url: string) => {
 
   try {
 
-    const { data } = await axios.get<Promise<Data>>((url), {
+    const { data } = await axios.get<Promise<ApiData>>((url), {
       headers: {
           'x-rapidapi-host': 'bayut.p.rapidapi.com',
           'x-rapidapi-key': '276a363cbemsh827128e574a0551p18b4afjsnf9788902b30c'
