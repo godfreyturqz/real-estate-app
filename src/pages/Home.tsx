@@ -34,17 +34,22 @@ const Home: React.FC = () => {
 
     useEffect(() => {
     
-        const fetchProperties = async () => {
-            const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`)
-            const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`)
-
-            console.log(propertyForRent.hits)
-            setPropertiesForRent(propertyForRent)
-            setpropertiesForSale(propertyForSale)
-
+        try {
+            const fetchProperties = async () => {
+                const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`)
+                const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`)
+    
+                console.log(propertyForRent.hits)
+                setPropertiesForRent(propertyForRent)
+                setpropertiesForSale(propertyForSale)
+    
+            }
+    
+            fetchProperties()
+        } catch (error) {
+            console.log(error);
         }
-
-        fetchProperties()
+        
 
     }, [])
 
