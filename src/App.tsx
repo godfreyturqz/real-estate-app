@@ -5,11 +5,10 @@ import NProgress from 'nprogress'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Search from './pages/Search'
-
+// STYLE
 import './styles/globals.css'
-import { testBlockchain } from './utils/blockchain/main'
-
-testBlockchain()
+// import { testBlockchain } from './utils/blockchain/main'
+// testBlockchain()
 
 const App = () => {
 

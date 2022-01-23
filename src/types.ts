@@ -19,3 +19,16 @@ export type ApiData = {
       externalID  : string
     }[]
 }
+
+export type FilterValues = {
+  purpose: string
+  rentFrequency: string
+  categoryExternalID: string | number
+  minPrice: number
+  maxPrice: number
+  areaMax: number
+  roomsMin: number
+  bathsMin: number
+  sort: string
+  locationExternalIDs: string | number
+}

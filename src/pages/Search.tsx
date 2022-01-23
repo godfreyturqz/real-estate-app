@@ -4,7 +4,7 @@ import { Flex, Box, Text, Icon } from '@chakra-ui/react'
 import { BsFilter } from 'react-icons/bs'
 
 import Property from '../components/Property'
-// import SearchFilters from '../components/SearchFilters'
+import SearchFilters from '../components/SearchFilters'
 import { baseUrl, fetchApi } from '../utils/fetchApi'
 import noresult from '../assets/images/noresult.svg'
 
@@ -59,7 +59,7 @@ const Search: React.FC = () => {
                 <Text>Search Property By Filters</Text>
                 <Icon paddingLeft='2' w='7' as={BsFilter} />
             </Flex>
-            {/* {searchFilters && <SearchFilters />} */}
+            {searchFilters && <SearchFilters />}
             <Text fontSize='2xl' p='4' fontWeight='bold'>
                 Properties {query.get('purpose')}
             </Text>
