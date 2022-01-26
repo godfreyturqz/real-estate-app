@@ -2,5 +2,6 @@
  
 Objectives
 1. Master React using Typescript
-2. Basic knowledge in Vite, ChakraUI and framer-motion
-3. Familiarize with other tools/ technologies: RapidAPI
+2. Update knowledge in React router V6
+3. Basic knowledge on using Vite, ChakraUI and framer-motion
+4. Familiarize with other tools: RapidAPI

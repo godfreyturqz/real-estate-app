@@ -5,6 +5,7 @@ import NProgress from 'nprogress'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Search from './pages/Search'
+import PropertyDetails from './pages/PropertyDetails'
 // STYLE
 import './styles/globals.css'
 // import { testBlockchain } from './utils/blockchain/main'
@@ -19,8 +20,9 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/search' element={<Search />} />
+            <Route path='/property/:id' element={<PropertyDetails />} />
           </Routes>
-          </Layout>
+        </Layout>
       </HashRouter>
     </ChakraProvider>
   )

@@ -1,53 +1,53 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import { Flex, Select, Box, Text, Input, Spinner, Icon, Button } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { MdCancel } from 'react-icons/md'
 
-import { filterData, getFilterValues } from '../utils/filterData'
-import { baseUrl, fetchApi } from '../utils/fetchApi'
-import noresult from '../assets/images/noresult.svg'
+import { filterOptions } from '../utils/filterOptions'
+// import { baseUrl, fetchApi } from '../utils/fetchApi'
+// import noresult from '../assets/images/noresult.svg'
+import { ApiData, FilterValues } from '../types'
 
-export default function SearchFilters() {
-  const [filters] = useState(filterData)
+const SearchFilters: React.FC = () => {
+
+  const [searchProperties, setSearchProperties] = useState<Partial<FilterValues>>({});
   const [searchTerm, setSearchTerm] = useState('')
-  const [locationData, setLocationData] = useState()
+  // const [locationData, setLocationData] = useState<ApiData | null>(null)
   const [showLocations, setShowLocations] = useState(false)
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  const searchProperties = (filterValues) => {
-    const path = router.pathname;
-    const { query } = router;
-
-    const values = getFilterValues(filterValues)
-
-    values.forEach((item) => {
-      if(item.value && filterValues?.[item.name]) {
-        query[item.name] = item.value
-      }
-    })
-
-    router.push({ pathname: path, query: query });
-  };
-
   useEffect(() => {
-    if (searchTerm !== '') {
-      const fetchData = async () => {
-        setLoading(true);
-        const data = await fetchApi(`${baseUrl}/auto-complete?query=${searchTerm}`);
-        setLoading(false);
-        setLocationData(data?.hits);
-      }
 
-      fetchData()
-    }
-  }, [searchTerm])
+    navigate(`/search?locationExternalIDs=${searchProperties.locationExternalIDs || ''}&purpose=${searchProperties.purpose || ''}&categoryExternalID=${searchProperties.categoryExternalID || ''}&bathsMin=${searchProperties.bathsMin || ''}&rentFrequency=${searchProperties.rentFrequency || ''}&priceMin=${searchProperties.minPrice || ''}&priceMax=${searchProperties.maxPrice || ''}&roomsMin=${searchProperties.roomsMin || ''}&sort=${searchProperties.sort || ''}&areaMax=${searchProperties.areaMax || ''}`)
+    
+    // try {
+    //   if (searchTerm !== '') {
+    //     const fetchData = async () => {
+    //       setLoading(true)
+    //       const data = await fetchApi(`${baseUrl}/auto-complete?query=${searchTerm}`);
+    //       setLoading(false)
+    //       setLocationData(data?.hits)
+    //     }
+  
+    //     fetchData()
+    //   }
+    // } catch (error) {
+    //   console.log(error)
+    // }
+
+  // }, [searchTerm, searchProperties])
+  }, [searchProperties])
 
   return (
     <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
-      {filters?.map((filter) => (
+      {filterOptions?.map((filter) => (
         <Box key={filter.queryName}>
-          <Select onChange={(e) => searchProperties({ [filter.queryName]: e.target.value })} placeholder={filter.placeholder} w='fit-content' p='2' >
+          <Select
+            onChange={(e) => setSearchProperties((prev) => ({ ...prev, [filter.queryName]: e.target.value }))}
+            placeholder={filter.placeholder}
+            w='fit-content' p='2' 
+          >
             {filter?.items?.map((item) => (
               <option value={item.value} key={item.value}>
                 {item.name}
@@ -80,14 +80,14 @@ export default function SearchFilters() {
                 onClick={() => setSearchTerm('')}
               />
             )}
-            {loading && <Spinner margin='auto' marginTop='3' />}
-            {showLocations && (
+            {/* {loading && <Spinner margin='auto' marginTop='3' />} */}
+            {/* {showLocations && (
               <Box height='300px' overflow='auto'>
                 {locationData?.map((location) => (
                   <Box
                     key={location.id}
                     onClick={() => {
-                      searchProperties({ locationExternalIDs: location.externalID });
+                      setSearchProperties(prev => ({...prev, locationExternalIDs: location.externalID }))
                       setShowLocations(false);
                       setSearchTerm(location.name);
                     }}
@@ -99,17 +99,19 @@ export default function SearchFilters() {
                 ))}
                 {!loading && !locationData?.length && (
                   <Flex justifyContent='center' alignItems='center' flexDir='column' marginTop='5' marginBottom='5' >
-                    <img src={noresult} />
+                    <img src={noresult} loading='lazy'/>
                     <Text fontSize='xl' marginTop='3'>
                       Waiting to search!
                     </Text>
                   </Flex>
                 )}
               </Box>
-            )}
+            )} */}
           </Flex>
         )}
       </Flex>
     </Flex>
   )
 }
+
+export default SearchFilters

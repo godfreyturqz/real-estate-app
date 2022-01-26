@@ -20,6 +20,34 @@ export type ApiData = {
     }[]
 }
 
+export type ApiDataDetails = {
+  price: number
+  rentFrequency: string
+  rooms: number
+  title: string
+  baths: number
+  area: number
+  agency: {
+      logo: {
+          url: string
+      }
+  }
+  isVerified: boolean
+  description: string
+  type: string
+  purpose: string
+  furnishingStatus: string
+  amenities: {
+    amenities: {
+      text: string
+    }[]
+  }[]
+  photos: {
+    id: number
+    url: string
+  }[]
+}
+
 export type FilterValues = {
   purpose: string
   rentFrequency: string
