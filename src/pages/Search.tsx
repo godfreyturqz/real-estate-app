@@ -33,7 +33,7 @@ const Search: React.FC = () => {
         try {
             const fetchProperties = async () => {
                 const properties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`)
-                setProperties(properties || null)
+                setProperties(properties)
             }
             fetchProperties()
             console.log(properties)

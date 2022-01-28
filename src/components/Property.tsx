@@ -49,7 +49,11 @@ const Property: React.FC<PropertyType> = ({
     <Link to={`/property/${externalID}`}>
       <Flex flexWrap='wrap' w='420px' p='5' paddingTop='0px' justifyContent='flex-start' cursor='pointer' >
         <Box>
-          <img src={coverPhoto ? coverPhoto.url : DefaultImage} style={{width:"400px", height:"260px"}} loading='lazy'/>
+          <img
+            loading='lazy'
+            src={coverPhoto ? coverPhoto.url : DefaultImage} 
+            style={{width:"400px", height:"260px"}}
+          />
         </Box>
         <Box w='full'>
           <Flex paddingTop='2' alignItems='center' justifyContent='space-between'>
