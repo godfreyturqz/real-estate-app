@@ -5,7 +5,8 @@ import { ApiData, ApiDataDetails } from '../types'
 export const baseUrl = 'https://bayut.p.rapidapi.com'
 
 export const fetchApi = (url: string): Promise<ApiData | null> => {
-
+  
+  // this is the typical API request without using Promise
   // try {
   //   const { data } = await axios.get<Promise<ApiData>>((url), {
   //     headers: {
@@ -18,6 +19,7 @@ export const fetchApi = (url: string): Promise<ApiData | null> => {
   //   console.log(error)
   // }
 
+  // A Promise should be used to take advantage of its built-in caching
   return new Promise(async (resolve, reject) => {
     try {
       const { data } = await axios.get((url), {

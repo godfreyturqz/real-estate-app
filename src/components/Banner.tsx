@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Flex, Box, Text, Button } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
@@ -21,12 +21,27 @@ const Banner: React.FC<BannerType> = ({
     desc1, 
     desc2, 
     buttonText, 
-    linkName, imageUrl 
+    linkName,
+    imageUrl 
 }) => {
+
+    const [imageLoaded, setImageLoaded] = useState(false)
     
     return (
         <Flex flexWrap='wrap' justifyContent='center' alignItems='center' m='10'>
-            <img src={imageUrl} style={{width: "500px", height: "300px"}} loading='lazy'/>
+            <img
+                loading='lazy'
+                src={imageUrl}
+                style={
+                    {
+                        width: "500px",
+                        height: "26300px0px",
+                        // visibility: imageLoaded ? 'visible' : 'hidden',
+                        filter: imageLoaded ? 'blur(0)' : 'blur(4px)'
+                    }
+                }
+                onLoad={() => setImageLoaded(true)}
+            />
             <Box p='5'>
             <Text color='gray.500' fontSize='sm' fontWeight='medium'>{purpose}</Text>
             <Text fontSize='3xl' fontWeight='bold'>{title1}<br />{title2}</Text>

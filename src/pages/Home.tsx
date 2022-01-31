@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { Flex, Box } from '@chakra-ui/react'
+import React, { useState, useEffect } from 'react'
+import { Flex, Box, Progress } from '@chakra-ui/react'
 
 import Banner from '../components/Banner'
 import Property from '../components/Property'
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
         )
     }
 
-    return <div>Loading...</div>
+    return <Progress size='sm' isIndeterminate/>
 }
 
 export default Home

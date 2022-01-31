@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Box, Flex, Text } from '@chakra-ui/layout'
 import { Avatar } from '@chakra-ui/avatar'
@@ -45,6 +45,8 @@ const Property: React.FC<PropertyType> = ({
   } 
 }) => {
 
+  const [imageLoaded, setImageLoaded] = useState(false)
+
   return (
     <Link to={`/property/${externalID}`}>
       <Flex flexWrap='wrap' w='420px' p='5' paddingTop='0px' justifyContent='flex-start' cursor='pointer' >
@@ -52,7 +54,15 @@ const Property: React.FC<PropertyType> = ({
           <img
             loading='lazy'
             src={coverPhoto ? coverPhoto.url : DefaultImage} 
-            style={{width:"400px", height:"260px"}}
+            style={
+              {
+                width: "400px",
+                height: "260px",
+                // visibility: imageLoaded ? 'visible' : 'hidden',
+                filter: imageLoaded ? 'blur(0)' : 'blur(4px)'
+              }
+            }
+            onLoad={() => setImageLoaded(true)}
           />
         </Box>
         <Box w='full'>
